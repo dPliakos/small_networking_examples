@@ -1,1 +1,3 @@
 *.class
+/analog_write/java_client/Analog_write_client/nbproject/private/
+/analog_write/java_client/Analog_write_client/build/

@@ -65,7 +65,7 @@ class Java_client_socket {
     int count = 0;
     Java_client_socket s = new Java_client_socket();
 
-    if (!s.createSocket("192.168.1.5", 5002)) System.exit(1);
+    if (!s.createSocket("192.168.2.3", 5002)) System.exit(1);
     if ((count = s.read()) > 0) System.out.println("Received: " + count + " bytes.");
     System.out.println("Socket closed " + (s.close() ? "successfully." : " with error."));
 
