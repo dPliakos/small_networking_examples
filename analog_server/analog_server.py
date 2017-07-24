@@ -2,15 +2,15 @@ import socket
 import sys
 import serial
 
-HOST = "192.168.1.5"
+HOST = "192.168.2.3"
 PORT = 5002
 maxSes = 5
 ses_num = 0
 s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 s.bind((HOST, PORT))
 
-while ses_num < maxSes:
-    ses_num += 1
+while True:
     s.listen(1)
     conn, addr=s.accept()
     s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
@@ -18,14 +18,12 @@ while ses_num < maxSes:
 
     ser = serial.Serial('/dev/ttyACM0', 9600)
 
-    while True :
-        try:
-            state=ser.readline()
-            if int(state) > 254:
-                break
-            conn.send(state)
-        except:
-            conn.send("255")
+    while not data:
+        data = conn.recv(255)
 
-    conn.close()
-    s.close()
+
+    print data
+
+print "end"
+conn.close()
+s.close()
